@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>CalculateMyDahej.com</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background: #e8e8e8;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+    }
+
+    .container {
+      background: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      width: 90%;
+      max-width: 400px;
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.1);
+      text-align: center;
+    }
+
+    h1 {
+      color: #b89400;
+      margin-bottom: 0;
+      font-size: 32px;
+    }
+
+    h2 {
+      color: #a87e00;
+      font-weight: 500;
+      margin: 5px 0 10px;
+    }
+
+    p {
+      color: #555;
+      font-size: 14px;
+      margin-bottom: 25px;
+    }
+
+    label {
+      display: block;
+      text-align: left;
+      margin: 10px 0 5px;
+      font-weight: bold;
+      color: #444;
+    }
+
+    input[type="number"], select {
+      width: 100%;
+      padding: 12px;
+      margin-bottom: 10px;
+      border: 1px solid #ccc;
+      border-radius: 10px;
+      font-size: 16px;
+      transition: all 0.2s ease-in-out;
+    }
+
+    input:focus, select:focus {
+      border-color: #f9d423;
+      box-shadow: 0 0 5px rgba(255, 165, 0, 0.3);
+      outline: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 12px;
+      background: linear-gradient(to right, #f9d423, #ff4e50);
+      color: white;
+      font-size: 16px;
+      font-weight: bold;
+      border: none;
+      border-radius: 10px;
+      margin-top: 20px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    /* Modal styles */
+    .modal {
+      display: none;
+      position: fixed;
+      z-index: 10;
+      left: 0;
+      top: 0;
+      width: 100%;
+      height: 100%;
+      overflow: auto;
+      background-color: rgba(0, 0, 0, 0.5);
+    }
+
+    .modal-content {
+      background-color: #fff;
+      margin: 15% auto;
+      padding: 20px;
+      border-radius: 12px;
+      width: 80%;
+      max-width: 400px;
+      text-align: center;
+      box-shadow: 0 5px 20px rgba(0,0,0,0.3);
+    }
+
+    .modal-content h3 {
+      color: #2f62d0;
+      margin: 0 0 15px;
+    }
+
+    .close-btn {
+      background-color: #2f62d0;
+      color: white;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 8px;
+      cursor: pointer;
+      font-weight: bold;
+    }
+
+    .close-btn:hover {
+      background-color: #1f4db8;
+    }
+
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>CMD</h1>
+    <h2>Welcome to <br><span style="color:#b89400;">CalculateMyDahej.com</span></h2>
+    <p>best way to get your dahej</p>
+
+    <label for="salary">💰 Salary</label>
+    <input type="number" id="salary" placeholder="Enter your salary">
+
+    <label for="property">🏡 Property</label>
+    <select id="property">
+      <option value="NO">No</option>
+      <option value="YES">Yes</option>
+    </select>
+
+    <label for="cow">🐄 Cow</label>
+    <select id="cow">
+      <option value="NO">No</option>
+      <option value="YES">Yes</option>
+    </select>
+
+    <label for="govtJob">🏛️ Government Job in Family</label>
+    <select id="govtJob">
+      <option value="NO">No</option>
+      <option value="YES">Yes</option>
+    </select>
+
+    <button onclick="calculateDahej()">CALCULATE</button>
+  </div>
+
+  <!-- Modal -->
+  <div id="resultModal" class="modal">
+    <div class="modal-content">
+      <h3 id="modalText">Calculated Dahej: ₹0</h3>
+      <button class="close-btn" onclick="closeModal()">OK</button>
+    </div>
+  </div>
+
+  <script>
+    function calculateDahej() {
+      const salary = parseFloat(document.getElementById("salary").value);
+      const property = document.getElementById("property").value;
+      const cow = document.getElementById("cow").value;
+      const govtJob = document.getElementById("govtJob").value;
+      const modal = document.getElementById("resultModal");
+      const modalText = document.getElementById("modalText");
+
+      if (isNaN(salary) || salary <= 0) {
+        modalText.textContent = "⚠️ Please enter a valid salary.";
+        modal.style.display = "block";
+        return;
+      }
+
+      let dahej = salary * 0.10;
+      if (property === "YES") dahej += 100000;
+      if (cow === "YES") dahej += 50000;
+      if (govtJob === "YES") dahej += 200000;
+
+      modalText.textContent = "Calculated Dahej: ₹" + dahej.toLocaleString();
+      modal.style.display = "block";
+    }
+
+    function closeModal() {
+      document.getElementById("resultModal").style.display = "none";
+    }
+
+    // Close modal when clicking outside of it
+    window.onclick = function(event) {
+      const modal = document.getElementById("resultModal");
+      if (event.target == modal) {
+        modal.style.display = "none";
+      }
+    }
+  </script>
+</body>
+</html>
